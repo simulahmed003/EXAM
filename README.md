@@ -4,4 +4,3 @@ HVAC&R System Design (KUET) exam study pack: start page, full solutions, questio
 
 Live site: https://simulahmed003.github.io/EXAM/
 
-Scanned textbook property-table pages are left out of this public copy.
