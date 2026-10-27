@@ -1,0 +1,185 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Duct friction chart</title><style>/* shared styles for the interactive charts and the numericals pages */
+:root{--ink:#1d2433;--mute:#5b6475;--line:#d9dee7;--bg:#ffffff;--soft:#f5f7fa;--und:#eef0f3;--und-b:#9aa3b2;--exam:#eaf7ee;--exam-b:#2e9d55;--acc:#0b63c5}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.55 system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif}
+.wrap{max-width:1180px;margin:0 auto;padding:16px}
+h1{font-size:26px;margin:8px 0 4px}h2{font-size:21px;margin:30px 0 8px;border-bottom:2px solid var(--line);padding-bottom:4px}
+h3{font-size:17px;margin:18px 0 6px}
+.sub{color:var(--mute);margin:0 0 14px}
+.tag{display:inline-block;font-size:11px;font-weight:700;letter-spacing:.06em;padding:2px 8px;border-radius:99px;margin-right:6px;vertical-align:2px}
+.tag.u{background:#dfe3e9;color:#3b4454}.tag.x{background:#c9ecd5;color:#16602f}
+.box{border-radius:10px;padding:12px 16px;margin:12px 0}
+.und{background:var(--und);border:1px solid var(--und-b)}
+.und>.lab,.exam>.lab{font-weight:700;font-size:13px;letter-spacing:.03em;margin-bottom:6px}
+.und>.lab{color:#3b4454}.exam>.lab{color:#16602f}
+.exam{background:var(--exam);border:2px solid var(--exam-b)}
+.prob{background:#fff8e6;border:1px solid #e9c46a}
+.script{background:#fff;border:1px dashed #9ccfac;border-radius:8px;padding:12px 16px;font-family:"Segoe Print","Comic Sans MS","Bradley Hand",cursive;font-size:15px;line-height:1.75}
+.script table{font-family:inherit}
+.boxed{display:inline-block;border:2px solid #16602f;padding:0 8px;border-radius:4px;font-weight:700}
+table.t{border-collapse:collapse;margin:6px 0;font-size:14px}
+table.t td,table.t th{border:1px solid #c4cad4;padding:3px 9px;text-align:center}
+table.t th{background:#e6eaf0}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media(max-width:820px){.two{grid-template-columns:1fr}}
+.col h4{margin:2px 0 6px}
+figure{margin:10px 0;text-align:center}figure img{max-width:100%;border:1px solid var(--line);border-radius:6px}
+figcaption{font-size:13px;color:var(--mute);margin-top:4px}
+.credit{font-size:11.5px;color:var(--mute);text-align:left}
+.mist li{margin:3px 0}
+.toc a{color:var(--acc);text-decoration:none}.toc li{margin:2px 0}
+.link{font-size:13px}
+/* ---- p-h explorer ---- */
+.phx{border:1px solid var(--line);border-radius:10px;padding:10px;background:var(--soft);margin:12px 0}
+.phx-top{display:flex;flex-wrap:wrap;gap:14px;margin-bottom:6px;font-size:14px}
+.phx-top select{font-size:14px;padding:2px}
+.phx-ctl{display:block}
+.phx-sl{display:inline-flex;align-items:center;gap:6px;margin:3px 16px 3px 0;font-size:14px}
+.phx-sl span{min-width:150px}.phx-sl input{width:150px}.phx-sl b{min-width:58px}
+.phx-btns{margin:6px 0}.phx-btns button,.ctl button{font-size:14px;padding:5px 12px;margin-right:8px;border-radius:6px;border:1px solid #9aa3b2;background:#fff;cursor:pointer}
+.phx-btns button:hover{background:#e9eef6}
+.phx-svg{width:100%;height:auto;display:block;background:#fff;border-radius:6px;touch-action:none}
+.phx-bg{fill:#fff}.phx-frame{fill:none;stroke:#333;stroke-width:1.2}
+.phx-grid{stroke:#eceff3;stroke-width:1}.phx-grid2{stroke:#d5dae2;stroke-width:1}
+.phx-dome{fill:none;stroke:#111;stroke-width:2.6}
+.phx-t{fill:none;stroke:#e0475b;stroke-width:.9;opacity:.75}
+.phx-s{fill:none;stroke:#2c9a4b;stroke-width:.8;stroke-dasharray:5 3;opacity:.8}
+.phx-v{fill:none;stroke:#2f6fd6;stroke-width:.8;opacity:.75}
+.phx-x{fill:none;stroke:#888;stroke-width:.7;opacity:.7}
+.phx-lt{font-size:10px;fill:#c0283c}.phx-ls{font-size:9.5px;fill:#1f7a39}.phx-lv{font-size:9.5px;fill:#2357a8}.phx-lx{font-size:9.5px;fill:#666;text-anchor:middle}
+.phx-dl{font-size:11px;font-style:italic;fill:#111}
+.phx-ax{font-size:11.5px;fill:#333}.phx-axt{font-size:13px;fill:#222}.phx-title{font-size:13px;font-weight:600;fill:#222}
+.phx-drop{stroke:#555;stroke-width:1;stroke-dasharray:3 3}
+.phx-pt{fill:#fff;stroke:#111;stroke-width:2}
+.phx-pl{font-size:17px;font-weight:700;fill:#111;paint-order:stroke;stroke:#fff;stroke-width:4px}
+.phx-hv{font-size:11.5px;font-weight:600;fill:#111;paint-order:stroke;stroke:#fff;stroke-width:3px}
+.phx-pv{font-size:12px;font-weight:600;fill:#333;paint-order:stroke;stroke:#fff;stroke-width:3px}
+.phx-zone{stroke:#ffd23f;stroke-width:12;opacity:.55;stroke-linecap:round}.phx-zl{font-size:12px;font-weight:600;fill:#7a5a00;paint-order:stroke;stroke:#fff;stroke-width:3px}
+.phx-cross{stroke:#0b63c5;stroke-width:.8;stroke-dasharray:2 2}
+.phx-tip{font-size:11.5px;fill:#fff}.phx-tip-bg{fill:#0b3d75;opacity:.9}
+.phx-info{margin:6px 2px;font-size:14px;min-height:22px}
+.phx-out{display:grid;grid-template-columns:repeat(auto-fill,minmax(205px,1fr));gap:4px 12px;font-size:14px;margin:6px 2px}
+.phx-out div{display:flex;justify-content:space-between;gap:6px;border-bottom:1px dotted #c4cad4}
+.phx-out span{color:var(--mute)}
+.phx-rows{background:#fff;border:1px solid #e9c46a;border-radius:8px;padding:8px 12px;margin-top:8px;font-size:14px}
+.phx-note{font-size:13px;color:#7a4b00;margin:4px 0 0}
+/* ---- generic small interactives ---- */
+.ix{border:1px solid var(--line);border-radius:10px;padding:10px;background:var(--soft);margin:12px 0}
+.ix svg{width:100%;height:auto;display:block;background:#fff;border-radius:6px}
+.ix .ctl{display:flex;flex-wrap:wrap;gap:4px 18px;font-size:14px;margin-bottom:6px}
+.ix .ctl label{display:inline-flex;align-items:center;gap:6px}
+.ix .ctl input[type=range]{width:140px}
+.ix .ctl input[type=number]{width:70px}
+.ix .res{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:4px 12px;font-size:14px;margin-top:6px}
+.ix .res div{display:flex;justify-content:space-between;border-bottom:1px dotted #c4cad4}
+.ix .res span{color:var(--mute)}
+@media print{
+ body{font-size:11.5pt}.wrap{max-width:none;padding:0}
+ .phx-ctl,.ix .ctl,.phx-btns,.noprint{display:none!important}
+ .phx,.ix,.box,figure,table{break-inside:avoid}
+ h2{break-before:page}
+ .phx-rows{display:block!important}
+ .two{grid-template-columns:1fr 1fr!important}.two .box{font-size:10pt}
+ figure img{max-width:88%!important}
+ .printonly{display:block!important}
+}
+.printonly{display:none}
+.psy-sat{fill:none;stroke:#111;stroke-width:2.4}.psy-rh{fill:none;stroke:#2c9a4b;stroke-width:.9}.psy-lrh{font-size:10.5px;fill:#1f7a39;font-weight:600}
+.psy-wb{fill:none;stroke:#e0475b;stroke-width:.7;stroke-dasharray:4 3;opacity:.7}.psy-wb2{fill:none;stroke:#e0475b;stroke-width:1.1;stroke-dasharray:4 3}
+.psy-h{stroke:#777;stroke-width:.7;opacity:.6}.psy-lh{font-size:10.5px;fill:#555}
+.psy-v{fill:none;stroke:#2f6fd6;stroke-width:.7;opacity:.6}.psy-lv{font-size:9.5px;fill:#2357a8}
+.dct-d{stroke:#222;stroke-width:1}.dct-ld{font-size:10.5px;fill:#222;font-weight:600}.dct-v{fill:none;stroke:#2f6fd6;stroke-width:1;stroke-dasharray:6 3}.dct-lv{font-size:10.5px;fill:#2357a8}
+
+.phx-work{grid-column:1/-1;background:#fff;border:1px solid #c4cad4;border-radius:8px;padding:8px 12px;margin:6px 0;font-size:14px;line-height:1.7}
+</style></head>
+<body><a class="hubbtn" href="../../ESE4025_Start_Here.html" style="position:fixed;top:10px;right:12px;z-index:99999;font:700 13px/1 'Segoe UI',system-ui,Arial,sans-serif;background:#c0392b;color:#fff;text-decoration:none;padding:9px 13px;border-radius:999px;box-shadow:0 2px 8px #0005">&#8962; All materials</a><div class="wrap"><h1>Duct friction chart</h1><p class="sub">Round ducts, standard air, friction law printed on the 2020 paper. <a class="link" href="../ESE4025_Numericals.html">back to the numericals</a></p><div id="c"></div></div><script>/* Interactive duct friction chart + equal-friction sizing table.
+   Friction law printed on the 2020 paper: f = 0.002268 Q^1.852 / D^4.973 (f in mm H2O per m, Q in m3/s, D in m).
+   DUCT.mount(el, {f:0.1, AR:3, rect:true, K:0, sections:[{n:'AB', Q:8, L:10, run:true, k:0}]}) */
+(function () {
+  'use strict';
+  function Dof(Q, f) { return Math.pow(0.002268 * Math.pow(Q, 1.852) / f, 1 / 4.973); }
+  function Qof(D, f) { return Math.pow(f * Math.pow(D, 4.973) / 0.002268, 1 / 1.852); }
+  function fOf(Q, D) { return 0.002268 * Math.pow(Q, 1.852) / Math.pow(D, 4.973); }
+  function rectB(De, AR) { return De * Math.pow(AR + 1, 0.25) / (1.3 * Math.pow(AR, 0.625)); }
+  function pv(V) { return 1.2 * V * V / 2 / 9.81; }
+  function size(o) {
+    var rows = o.sections.map(function (s) {
+      var D = Dof(s.Q, o.f), b = rectB(D, o.AR), a = o.AR * b, A = o.rect ? a * b : Math.PI * D * D / 4, V = s.Q / A;
+      return { n: s.n, Q: s.Q, L: s.L, run: s.run, k: s.k || 0, D: D, a: a, b: b, V: V, pv: pv(V), fr: o.f * s.L };
+    });
+    var run = rows.filter(function (r) { return r.run; });
+    var Lrun = run.reduce(function (t, r) { return t + r.L; }, 0), dyn = rows.reduce(function (t, r) { return t + r.k * (o.K || 0) * r.pv; }, 0);
+    return { rows: rows, Lrun: Lrun, fric: o.f * Lrun, dyn: dyn, total: o.f * Lrun + dyn };
+  }
+  var api = { Dof: Dof, Qof: Qof, rectB: rectB, pv: pv, size: size };
+  if (typeof module !== 'undefined') { module.exports = api; return; }
+
+  var NS = 'http://www.w3.org/2000/svg';
+  function el(tag, at, par, txt) { var e = document.createElementNS(NS, tag); for (var k in at) e.setAttribute(k, at[k]); if (txt != null) e.textContent = txt; if (par) par.appendChild(e); return e; }
+  function hd(tag, at, html) { var e = document.createElement(tag); for (var k in at) e.setAttribute(k, at[k]); if (html != null) e.innerHTML = html; return e; }
+  function fx(v, n) { return (+v).toFixed(n); }
+  function mount(root, o) {
+    o = Object.assign({ f: 0.1, AR: 3, rect: true, K: 0, sections: [{ n: 'AB', Q: 8, L: 10, run: true }], title: '' }, o || {});
+    root.classList.add('ix');
+    var W = 900, H = 560, M = { l: 60, r: 20, t: 30, b: 50 }, f0 = 0.02, f1 = 2, Q0 = 0.1, Q1 = 40;
+    var ctl = hd('div', { class: 'ctl' }), svg = el('svg', { viewBox: '0 0 ' + W + ' ' + H }), res = hd('div', {}), info = hd('div', { class: 'phx-info' }, 'Each section sits on the vertical friction-rate line; read its diameter from the black lines and its velocity from the blue lines. Hover to read any point.');
+    if (o.title) root.appendChild(hd('div', {}, o.title));
+    root.appendChild(ctl); root.appendChild(svg); root.appendChild(info); root.appendChild(res);
+    var lf = hd('label', {}, 'Friction rate f '), fi = hd('input', { type: 'range', min: 0.05, max: 0.3, step: 0.005, value: o.f }), fb = hd('b', {}, o.f + ' mm H₂O/m');
+    fi.oninput = function () { o.f = +fi.value; fb.textContent = fi.value + ' mm H₂O/m'; draw(); }; lf.appendChild(fi); lf.appendChild(fb); ctl.appendChild(lf);
+    var la = hd('label', {}, 'Aspect ratio a:b '), ai = hd('input', { type: 'range', min: 1, max: 4, step: 0.5, value: o.AR }), ab = hd('b', {}, o.AR + ':1');
+    ai.oninput = function () { o.AR = +ai.value; ab.textContent = ai.value + ':1'; draw(); }; la.appendChild(ai); la.appendChild(ab); ctl.appendChild(la);
+    var lr = hd('label', {}), cr = hd('input', { type: 'checkbox' }); cr.checked = o.rect; lr.appendChild(cr); lr.appendChild(document.createTextNode(' rectangular ducts')); cr.onchange = function () { o.rect = cr.checked; draw(); }; ctl.appendChild(lr);
+    var X = function (f) { return M.l + Math.log(f / f0) / Math.log(f1 / f0) * (W - M.l - M.r); }, Y = function (Q) { return H - M.b - Math.log(Q / Q0) / Math.log(Q1 / Q0) * (H - M.t - M.b); };
+    var Xi = function (x) { return f0 * Math.pow(f1 / f0, (x - M.l) / (W - M.l - M.r)); }, Yi = function (y) { return Q0 * Math.pow(Q1 / Q0, (H - M.b - y) / (H - M.t - M.b)); };
+    var gH, hov = null;
+    svg.addEventListener('mousemove', function (e) { var r = svg.getBoundingClientRect(), x = (e.clientX - r.left) * W / r.width, y = (e.clientY - r.top) * H / r.height; hov = x > M.l && x < W - M.r && y > M.t && y < H - M.b ? [x, y] : null; hover(); });
+    svg.addEventListener('mouseleave', function () { hov = null; hover(); });
+    function hover() {
+      if (!gH) return; while (gH.firstChild) gH.removeChild(gH.firstChild); if (!hov) return;
+      var f = Xi(hov[0]), Q = Yi(hov[1]), D = Dof(Q, f), V = Q / (Math.PI * D * D / 4);
+      var lab = 'f ' + fx(f, 3) + ' mm/m   Q ' + fx(Q, 2) + ' m³/s   D ' + fx(D, 3) + ' m   V ' + fx(V, 1) + ' m/s';
+      el('line', { x1: hov[0], y1: M.t, x2: hov[0], y2: H - M.b, class: 'phx-cross' }, gH); el('line', { x1: M.l, y1: hov[1], x2: W - M.r, y2: hov[1], class: 'phx-cross' }, gH);
+      var bx = Math.min(hov[0] + 10, W - M.r - lab.length * 6.3); el('rect', { x: bx - 4, y: hov[1] - 22, width: lab.length * 6.3 + 8, height: 18, rx: 3, class: 'phx-tip-bg' }, gH); el('text', { x: bx, y: hov[1] - 9, class: 'phx-tip' }, gH, lab);
+    }
+    function draw() {
+      while (svg.firstChild) svg.removeChild(svg.firstChild);
+      el('rect', { x: 0, y: 0, width: W, height: H, fill: '#fff' }, svg);
+      var cl = el('clipPath', { id: 'dc' + uid }, el('defs', {}, svg)); el('rect', { x: M.l, y: M.t, width: W - M.l - M.r, height: H - M.t - M.b }, cl);
+      var g = el('g', { 'clip-path': 'url(#dc' + uid + ')' }, svg);
+      var fs = [0.02, 0.03, 0.04, 0.05, 0.06, 0.08, 0.1, 0.15, 0.2, 0.3, 0.4, 0.5, 0.6, 0.8, 1, 1.5, 2], qs = [0.1, 0.15, 0.2, 0.3, 0.4, 0.5, 0.6, 0.8, 1, 1.5, 2, 3, 4, 5, 6, 8, 10, 15, 20, 30, 40];
+      fs.forEach(function (f) { el('line', { x1: X(f), y1: M.t, x2: X(f), y2: H - M.b, class: [0.1, 1].indexOf(f) >= 0 ? 'phx-grid2' : 'phx-grid' }, g); el('text', { x: X(f), y: H - M.b + 16, class: 'phx-ax', 'text-anchor': 'middle' }, svg, f); });
+      qs.forEach(function (q) { el('line', { x1: M.l, y1: Y(q), x2: W - M.r, y2: Y(q), class: [1, 10].indexOf(q) >= 0 ? 'phx-grid2' : 'phx-grid' }, g); el('text', { x: M.l - 6, y: Y(q) + 4, class: 'phx-ax', 'text-anchor': 'end' }, svg, q); });
+      [0.15, 0.2, 0.25, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 1.0, 1.2, 1.4, 1.6, 2.0, 2.5].forEach(function (D) {
+        el('line', { x1: X(f0), y1: Y(Qof(D, f0)), x2: X(f1), y2: Y(Qof(D, f1)), class: 'dct-d' }, g);
+        var fl = 0.035, ql = Qof(D, fl); if (ql > Q1) { ql = Q1 * 0.85; fl = fOf(ql, D); }
+        el('text', { x: X(fl), y: Y(ql) - 3, class: 'dct-ld' }, g, 'D ' + D + ' m');
+      });
+      [2, 3, 4, 5, 6, 8, 10, 12, 15, 20].forEach(function (V) {
+        var pts = []; for (var D = 0.05; D < 4; D *= 1.05) { var Q = V * Math.PI * D * D / 4, f = fOf(Q, D); if (f > f0 * 0.8 && f < f1 * 1.2) pts.push([f, Q]); }
+        el('path', { d: 'M' + pts.map(function (q) { return X(q[0]).toFixed(1) + ',' + Y(q[1]).toFixed(1); }).join('L'), class: 'dct-v' }, g);
+        var lp = pts.filter(function (q) { return q[1] > Q0 * 1.15 && q[0] < f1 * 0.9; })[0]; if (lp) el('text', { x: X(lp[0]) + 3, y: Y(lp[1]) - 3, class: 'dct-lv' }, g, V + ' m/s');
+      });
+      el('rect', { x: M.l, y: M.t, width: W - M.l - M.r, height: H - M.t - M.b, class: 'phx-frame' }, svg);
+      el('text', { x: (W + M.l) / 2, y: H - 12, class: 'phx-axt', 'text-anchor': 'middle' }, svg, 'Friction loss f (mm H₂O per m length, log scale)');
+      el('text', { x: 16, y: H / 2, class: 'phx-axt', 'text-anchor': 'middle', transform: 'rotate(-90 16 ' + H / 2 + ')' }, svg, 'Air flow Q (m³/s, log scale)');
+      el('text', { x: M.l + 4, y: M.t - 10, class: 'phx-title' }, svg, 'Duct friction chart (round ducts, standard air) · black: diameter D · blue: velocity V');
+      var s = size(o);
+      el('line', { x1: X(o.f), y1: M.t, x2: X(o.f), y2: H - M.b, stroke: '#d62728', 'stroke-width': 2 }, svg);
+      el('text', { x: X(o.f) + 4, y: H - M.b - 6, fill: '#d62728', 'font-size': 12, 'font-weight': 700 }, svg, 'f = ' + o.f);
+      s.rows.forEach(function (r, i) {
+        el('line', { x1: M.l, y1: Y(r.Q), x2: X(o.f), y2: Y(r.Q), class: 'phx-drop' }, svg);
+        el('circle', { cx: X(o.f), cy: Y(r.Q), r: 5, class: 'phx-pt' }, svg);
+        el('text', { x: X(o.f) + (i % 2 ? -8 : 8), y: Y(r.Q) + 4, class: 'phx-hv', 'text-anchor': i % 2 ? 'end' : 'start' }, svg, r.n + ': D = ' + fx(r.D, 3) + ' m');
+      });
+      gH = el('g', {}, svg); hover();
+      var t = '<table class="t"><tr><th>Section</th><th>Q m³/s</th><th>L m</th><th>D (round) m</th>' + (o.rect ? '<th>b = ' + fx(rectB(1, o.AR), 3) + 'D</th><th>a = ' + o.AR + 'b</th>' : '') + '<th>V m/s</th><th>p<sub>v</sub> mm</th><th>f·L mm</th></tr>';
+      s.rows.forEach(function (r) { t += '<tr' + (r.run ? ' style="background:#fff3cd"' : '') + '><td>' + r.n + '</td><td>' + r.Q + '</td><td>' + (r.L || '') + '</td><td><b>' + fx(r.D, 3) + '</b></td>' + (o.rect ? '<td>' + fx(r.b, 3) + '</td><td><b>' + fx(r.a, 3) + '</b></td>' : '') + '<td>' + fx(r.V, 2) + '</td><td>' + fx(r.pv, 2) + '</td><td>' + (r.L ? fx(r.fr, 2) : '') + '</td></tr>'; });
+      t += '</table><p style="font-size:14px;margin:4px 2px">Highlighted rows = index (longest) run, ΣL = ' + s.Lrun + ' m → friction = ' + fx(s.fric, 2) + ' mm H₂O' + (o.K ? '; dynamic losses = ' + fx(s.dyn, 2) + ' mm; fan pressure ≈ <b>' + fx(s.total, 2) + ' mm H₂O</b>' : '') + '.</p>';
+      res.innerHTML = t;
+    }
+    var uid = Math.random().toString(36).slice(2, 7);
+    draw();
+  }
+  window.DUCT = { mount: mount, calc: api };
+})();
+</script><script>DUCT.mount(document.getElementById('c'),{"f": 0.1, "sections": [{"n": "example", "Q": 5, "L": 10, "run": true}]});</script></body></html>

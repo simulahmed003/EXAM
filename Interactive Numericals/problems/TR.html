@@ -1,0 +1,227 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>ESE 4025 Ton of refrigeration loads (2024 1a, 2023 1d, 2020 1c)</title><style>/* shared styles for the interactive charts and the numericals pages */
+:root{--ink:#1d2433;--mute:#5b6475;--line:#d9dee7;--bg:#ffffff;--soft:#f5f7fa;--und:#eef0f3;--und-b:#9aa3b2;--exam:#eaf7ee;--exam-b:#2e9d55;--acc:#0b63c5}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.55 system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif}
+.wrap{max-width:1180px;margin:0 auto;padding:16px}
+h1{font-size:26px;margin:8px 0 4px}h2{font-size:21px;margin:30px 0 8px;border-bottom:2px solid var(--line);padding-bottom:4px}
+h3{font-size:17px;margin:18px 0 6px}
+.sub{color:var(--mute);margin:0 0 14px}
+.tag{display:inline-block;font-size:11px;font-weight:700;letter-spacing:.06em;padding:2px 8px;border-radius:99px;margin-right:6px;vertical-align:2px}
+.tag.u{background:#dfe3e9;color:#3b4454}.tag.x{background:#c9ecd5;color:#16602f}
+.box{border-radius:10px;padding:12px 16px;margin:12px 0}
+.und{background:var(--und);border:1px solid var(--und-b)}
+.und>.lab,.exam>.lab{font-weight:700;font-size:13px;letter-spacing:.03em;margin-bottom:6px}
+.und>.lab{color:#3b4454}.exam>.lab{color:#16602f}
+.exam{background:var(--exam);border:2px solid var(--exam-b)}
+.prob{background:#fff8e6;border:1px solid #e9c46a}
+.script{background:#fff;border:1px dashed #9ccfac;border-radius:8px;padding:12px 16px;font-family:"Segoe Print","Comic Sans MS","Bradley Hand",cursive;font-size:15px;line-height:1.75}
+.script table{font-family:inherit}
+.boxed{display:inline-block;border:2px solid #16602f;padding:0 8px;border-radius:4px;font-weight:700}
+table.t{border-collapse:collapse;margin:6px 0;font-size:14px}
+table.t td,table.t th{border:1px solid #c4cad4;padding:3px 9px;text-align:center}
+table.t th{background:#e6eaf0}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media(max-width:820px){.two{grid-template-columns:1fr}}
+.col h4{margin:2px 0 6px}
+figure{margin:10px 0;text-align:center}figure img{max-width:100%;border:1px solid var(--line);border-radius:6px}
+figcaption{font-size:13px;color:var(--mute);margin-top:4px}
+.credit{font-size:11.5px;color:var(--mute);text-align:left}
+.mist li{margin:3px 0}
+.toc a{color:var(--acc);text-decoration:none}.toc li{margin:2px 0}
+.link{font-size:13px}
+/* ---- p-h explorer ---- */
+.phx{border:1px solid var(--line);border-radius:10px;padding:10px;background:var(--soft);margin:12px 0}
+.phx-top{display:flex;flex-wrap:wrap;gap:14px;margin-bottom:6px;font-size:14px}
+.phx-top select{font-size:14px;padding:2px}
+.phx-ctl{display:block}
+.phx-sl{display:inline-flex;align-items:center;gap:6px;margin:3px 16px 3px 0;font-size:14px}
+.phx-sl span{min-width:150px}.phx-sl input{width:150px}.phx-sl b{min-width:58px}
+.phx-btns{margin:6px 0}.phx-btns button,.ctl button{font-size:14px;padding:5px 12px;margin-right:8px;border-radius:6px;border:1px solid #9aa3b2;background:#fff;cursor:pointer}
+.phx-btns button:hover{background:#e9eef6}
+.phx-svg{width:100%;height:auto;display:block;background:#fff;border-radius:6px;touch-action:none}
+.phx-bg{fill:#fff}.phx-frame{fill:none;stroke:#333;stroke-width:1.2}
+.phx-grid{stroke:#eceff3;stroke-width:1}.phx-grid2{stroke:#d5dae2;stroke-width:1}
+.phx-dome{fill:none;stroke:#111;stroke-width:2.6}
+.phx-t{fill:none;stroke:#e0475b;stroke-width:.9;opacity:.75}
+.phx-s{fill:none;stroke:#2c9a4b;stroke-width:.8;stroke-dasharray:5 3;opacity:.8}
+.phx-v{fill:none;stroke:#2f6fd6;stroke-width:.8;opacity:.75}
+.phx-x{fill:none;stroke:#888;stroke-width:.7;opacity:.7}
+.phx-lt{font-size:10px;fill:#c0283c}.phx-ls{font-size:9.5px;fill:#1f7a39}.phx-lv{font-size:9.5px;fill:#2357a8}.phx-lx{font-size:9.5px;fill:#666;text-anchor:middle}
+.phx-dl{font-size:11px;font-style:italic;fill:#111}
+.phx-ax{font-size:11.5px;fill:#333}.phx-axt{font-size:13px;fill:#222}.phx-title{font-size:13px;font-weight:600;fill:#222}
+.phx-drop{stroke:#555;stroke-width:1;stroke-dasharray:3 3}
+.phx-pt{fill:#fff;stroke:#111;stroke-width:2}
+.phx-pl{font-size:17px;font-weight:700;fill:#111;paint-order:stroke;stroke:#fff;stroke-width:4px}
+.phx-hv{font-size:11.5px;font-weight:600;fill:#111;paint-order:stroke;stroke:#fff;stroke-width:3px}
+.phx-pv{font-size:12px;font-weight:600;fill:#333;paint-order:stroke;stroke:#fff;stroke-width:3px}
+.phx-zone{stroke:#ffd23f;stroke-width:12;opacity:.55;stroke-linecap:round}.phx-zl{font-size:12px;font-weight:600;fill:#7a5a00;paint-order:stroke;stroke:#fff;stroke-width:3px}
+.phx-cross{stroke:#0b63c5;stroke-width:.8;stroke-dasharray:2 2}
+.phx-tip{font-size:11.5px;fill:#fff}.phx-tip-bg{fill:#0b3d75;opacity:.9}
+.phx-info{margin:6px 2px;font-size:14px;min-height:22px}
+.phx-out{display:grid;grid-template-columns:repeat(auto-fill,minmax(205px,1fr));gap:4px 12px;font-size:14px;margin:6px 2px}
+.phx-out div{display:flex;justify-content:space-between;gap:6px;border-bottom:1px dotted #c4cad4}
+.phx-out span{color:var(--mute)}
+.phx-rows{background:#fff;border:1px solid #e9c46a;border-radius:8px;padding:8px 12px;margin-top:8px;font-size:14px}
+.phx-note{font-size:13px;color:#7a4b00;margin:4px 0 0}
+/* ---- generic small interactives ---- */
+.ix{border:1px solid var(--line);border-radius:10px;padding:10px;background:var(--soft);margin:12px 0}
+.ix svg{width:100%;height:auto;display:block;background:#fff;border-radius:6px}
+.ix .ctl{display:flex;flex-wrap:wrap;gap:4px 18px;font-size:14px;margin-bottom:6px}
+.ix .ctl label{display:inline-flex;align-items:center;gap:6px}
+.ix .ctl input[type=range]{width:140px}
+.ix .ctl input[type=number]{width:70px}
+.ix .res{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:4px 12px;font-size:14px;margin-top:6px}
+.ix .res div{display:flex;justify-content:space-between;border-bottom:1px dotted #c4cad4}
+.ix .res span{color:var(--mute)}
+@media print{
+ body{font-size:11.5pt}.wrap{max-width:none;padding:0}
+ .phx-ctl,.ix .ctl,.phx-btns,.noprint{display:none!important}
+ .phx,.ix,.box,figure,table{break-inside:avoid}
+ h2{break-before:page}
+ .phx-rows{display:block!important}
+ .two{grid-template-columns:1fr 1fr!important}.two .box{font-size:10pt}
+ figure img{max-width:88%!important}
+ .printonly{display:block!important}
+}
+.printonly{display:none}
+.psy-sat{fill:none;stroke:#111;stroke-width:2.4}.psy-rh{fill:none;stroke:#2c9a4b;stroke-width:.9}.psy-lrh{font-size:10.5px;fill:#1f7a39;font-weight:600}
+.psy-wb{fill:none;stroke:#e0475b;stroke-width:.7;stroke-dasharray:4 3;opacity:.7}.psy-wb2{fill:none;stroke:#e0475b;stroke-width:1.1;stroke-dasharray:4 3}
+.psy-h{stroke:#777;stroke-width:.7;opacity:.6}.psy-lh{font-size:10.5px;fill:#555}
+.psy-v{fill:none;stroke:#2f6fd6;stroke-width:.7;opacity:.6}.psy-lv{font-size:9.5px;fill:#2357a8}
+.dct-d{stroke:#222;stroke-width:1}.dct-ld{font-size:10.5px;fill:#222;font-weight:600}.dct-v{fill:none;stroke:#2f6fd6;stroke-width:1;stroke-dasharray:6 3}.dct-lv{font-size:10.5px;fill:#2357a8}
+
+.phx-work{grid-column:1/-1;background:#fff;border:1px solid #c4cad4;border-radius:8px;padding:8px 12px;margin:6px 0;font-size:14px;line-height:1.7}
+</style></head>
+<body><a class="hubbtn" href="../../ESE4025_Start_Here.html" style="position:fixed;top:10px;right:12px;z-index:99999;font:700 13px/1 'Segoe UI',system-ui,Arial,sans-serif;background:#c0392b;color:#fff;text-decoration:none;padding:9px 13px;border-radius:999px;box-shadow:0 2px 8px #0005">&#8962; All materials</a><div class="wrap"><h2 style="break-before:auto" id="TR">5. Refrigeration tonnage: ice and cold-storage loads (2024 1a, 2023 1d, 2020 1c)</h2><p class="sub">Topic A3 &middot; 10 + 7 + 10 marks &middot; <a class="noprint link" href="../ESE4025_Numericals.html">back to all numericals</a></p>
+<h3>A. Problem</h3><div class="box prob"><b>2024 1(a):</b> Calculate the refrigeration tonnage for 2000 kg ice melting from 0 &deg;C to 45 &deg;C. <b>2023 1(d):</b> Calculate the refrigeration tonnage for 1500 kg ice from 0 &deg;C to 25 &deg;C. <b>2020 1(c):</b> 600 kg of fruit enters a cold store at 25 &deg;C and is cooled to &minus;5 &deg;C in 8 hours; latent heat of freezing 105 kJ/kg, specific heat 1.255 kJ/kg K. Find the plant capacity.</div>
+<h3>B. <span class="tag u">UNDERSTAND</span>How the cycle/process works</h3><div class="box und"><div class="lab">For understanding &ndash; do not write</div><p><b>1 TR (ton of refrigeration)</b> = heat to melt 1 tonne of ice at 0 &deg;C in 24 h &asymp; <b>210 kJ/min = 3.5 kW</b>.</p>
+<p>Any load = <b>latent part</b> (phase change, temperature constant: m L) + <b>sensible part</b> (temperature change: m c &Delta;T). Add them, divide by the time in minutes, then divide by 210.</p>
+<p>Ice questions with no time given are taken over <b>24 h</b> (the definition of TR). Water c = 4.187 kJ/kg K, ice latent heat L = 335 kJ/kg.</p></div>
+<h3>C. <span class="tag u">UNDERSTAND</span>Interactive graph</h3><p class="link noprint">Change mass, temperatures and time; the staircase shows latent and sensible parts.</p><div id="ix-TR"></div>
+<p class="printonly link">Printed snapshot at the exam values. Interactive version (sliders, step-through, hover read-out): open <b>problems/TR.html</b> in a browser.</p>
+<h3>F. <span class="tag x">WRITE IN EXAM</span>Model answer</h3><div class="box exam"><div class="lab">Write this in the exam</div><div class="script"><p><b>2024 1(a):</b> Q = m[L + c<sub>w</sub>(t<sub>2</sub> &minus; 0)] = 2000[335 + 4.187 &times; 45] = 1,046,830 kJ per day</p>
+<p>= 1,046,830 / 1440 = 727.0 kJ/min; &nbsp; TR = 727.0 / 210 = <span class="boxed">3.46 TR</span></p>
+<p><b>2023 1(d):</b> Q = 1500[335 + 4.187 &times; 25] = 659,512 kJ/day = 458.0 kJ/min; &nbsp; TR = <span class="boxed">2.18 TR</span></p>
+<p><b>2020 1(c):</b> Sensible = m c &Delta;T = 600 &times; 1.255 &times; (25 &minus; (&minus;5)) = 22,590 kJ; Latent = 600 &times; 105 = 63,000 kJ</p>
+<p>Total = 85,590 kJ in 8 h = 85,590/480 = 178.3 kJ/min; &nbsp; Capacity = 178.3/210 = <span class="boxed">0.85 TR</span></p>
+<p><b>Definition line</b> (write it first, 1 mark): 1 TR = heat removed to freeze 1 tonne of ice from and at 0 &deg;C in 24 h = 210 kJ/min &asymp; 3.5 kW.</p></div></div>
+<h3>G. <span class="tag u">UNDERSTAND</span>Common mistakes</h3><div class="box und"><div class="lab">For understanding &ndash; do not write</div><ul class="mist"><li><b>Forgetting the time.</b> TR is a rate: divide by minutes (24 h = 1440 min, 8 h = 480 min).</li><li><b>Using ice c for water.</b> Above 0 &deg;C it is water: c = 4.187 kJ/kg K.</li><li><b>For the 2020 fruit:</b> the paper gives one c for the whole range, so use 1.255 &times; 30 K. Say so in one line.</li></ul></div></div><script>/* Small interactive figures for the non-refrigerant numericals: ice/cold-store load,
+   CO2 ventilation, room cooling-load breakdown, aircraft air cycle. No library, no network. */
+(function () {
+  'use strict';
+  var NS = 'http://www.w3.org/2000/svg';
+  function el(tag, at, par, txt) { var e = document.createElementNS(NS, tag); for (var k in at) e.setAttribute(k, at[k]); if (txt != null) e.textContent = txt; if (par) par.appendChild(e); return e; }
+  function hd(tag, at, html) { var e = document.createElement(tag); for (var k in at) e.setAttribute(k, at[k]); if (html != null) e.innerHTML = html; return e; }
+  function fx(v, n) { return (+v).toFixed(n); }
+  function frame(root, o, sliders, W, H) {
+    root.classList.add('ix');
+    var ctl = hd('div', { class: 'ctl' }), svg = el('svg', { viewBox: '0 0 ' + W + ' ' + H }), res = hd('div', { class: 'res' }), info = hd('div', { class: 'phx-info' });
+    if (o.title) root.appendChild(hd('div', {}, o.title));
+    root.appendChild(ctl); root.appendChild(svg); root.appendChild(info); root.appendChild(res);
+    var api = { svg: svg, res: res, info: info, draw: null };
+    sliders.forEach(function (s) {
+      var w = hd('label', {}, s[1] + ' '), i = hd('input', { type: 'range', min: s[2], max: s[3], step: s[4], value: o[s[0]] }), b = hd('b', {}, o[s[0]] + ' ' + s[5]);
+      i.oninput = function () { o[s[0]] = +i.value; b.textContent = i.value + ' ' + s[5]; api.draw(); }; w.appendChild(i); w.appendChild(b); ctl.appendChild(w);
+    });
+    return api;
+  }
+  function clear(svg, W, H) { while (svg.firstChild) svg.removeChild(svg.firstChild); el('rect', { x: 0, y: 0, width: W, height: H, fill: '#fff' }, svg); }
+  function q(l, v, u) { return '<div><span>' + l + '</span><b>' + v + '</b> ' + u + '</div>'; }
+
+  // ---- ice / product load: energy staircase on a temperature-heat diagram ----
+  function ice(root, o) {
+    o = Object.assign({ m: 2000, mode: 'ice', t1: 0, t2: 45, c: 4.187, L: 335, hours: 24 }, o);
+    var W = 900, H = 330;
+    var a = frame(root, o, [['m', 'Mass', 100, 3000, 50, 'kg'], ['t1', 'Start temp', -10, 40, 1, '°C'], ['t2', 'End temp', -10, 60, 1, '°C'], ['hours', 'Time', 1, 24, 1, 'h']], W, H);
+    a.draw = function () {
+      clear(a.svg, W, H);
+      var sens = o.m * o.c * Math.abs(o.t2 - o.t1), lat = o.m * o.L, tot = sens + lat, kjmin = tot / (o.hours * 60), TR = kjmin / 210;
+      var M = { l: 70, r: 30, t: 30, b: 50 }, Tmin = Math.min(o.t1, o.t2, 0) - 5, Tmax = Math.max(o.t1, o.t2, 0) + 5;
+      var X = function (qq) { return M.l + qq / tot * (W - M.l - M.r); }, Y = function (t) { return H - M.b - (t - Tmin) / (Tmax - Tmin) * (H - M.t - M.b); };
+      el('rect', { x: M.l, y: M.t, width: W - M.l - M.r, height: H - M.t - M.b, class: 'phx-frame' }, a.svg);
+      var latFirst = o.mode === 'ice' ? (o.t2 > o.t1) : true;
+      var pts = o.mode === 'ice' ? [[0, 0], [lat, 0], [tot, o.t2]] : [[0, o.t1], [sens, o.t2], [tot, o.t2]];
+      el('path', { d: 'M' + pts.map(function (p) { return X(p[0]) + ',' + Y(p[1]); }).join('L'), fill: 'none', stroke: '#d62728', 'stroke-width': 4 }, a.svg);
+      var segs = o.mode === 'ice' ? [[0, lat, 'latent m·L = ' + fx(lat / 1000, 1) + ' MJ', '#1f77b4'], [lat, tot, 'sensible m·c·ΔT = ' + fx(sens / 1000, 1) + ' MJ', '#ff7f0e']] :
+        [[0, sens, 'sensible m·c·ΔT = ' + fx(sens / 1000, 1) + ' MJ', '#ff7f0e'], [sens, tot, 'latent m·L = ' + fx(lat / 1000, 1) + ' MJ', '#1f77b4']];
+      segs.forEach(function (s, i) { el('rect', { x: X(s[0]), y: H - M.b + 6, width: X(s[1]) - X(s[0]), height: 14, fill: s[3] }, a.svg); el('text', { x: (X(s[0]) + X(s[1])) / 2, y: M.t + 22 + i * 18, 'text-anchor': 'middle', class: 'phx-hv' }, a.svg, s[2]); });
+      [Tmin + 5, 0, o.t1, o.t2].forEach(function (t) { el('text', { x: M.l - 6, y: Y(t) + 4, 'text-anchor': 'end', class: 'phx-ax' }, a.svg, fx(t, 0) + ' °C'); el('line', { x1: M.l, y1: Y(t), x2: W - M.r, y2: Y(t), class: 'phx-grid' }, a.svg); });
+      el('text', { x: (W + M.l) / 2, y: H - 8, 'text-anchor': 'middle', class: 'phx-axt' }, a.svg, 'Heat removed or added (kJ) →   total ' + fx(tot, 0) + ' kJ');
+      a.res.innerHTML = q('Sensible', fx(sens, 0), 'kJ') + q('Latent', fx(lat, 0), 'kJ') + q('Total', fx(tot, 0), 'kJ') + q('Per minute', fx(kjmin, 1), 'kJ/min') + q('Capacity', fx(TR, 2), 'TR') + q('= ', fx(TR * 3.5, 2), 'kW') + '<p class="phx-work"><b>Working (formula = substitution = answer)</b><br>' + 'Sensible = m c ΔT = ' + o.m + ' × ' + o.c + ' × ' + Math.abs(o.t2 - o.t1) + ' = <b>' + fx(sens, 0) + ' kJ</b><br>Latent = m L = ' + o.m + ' × ' + o.L + ' = <b>' + fx(lat, 0) + ' kJ</b><br>Total = ' + fx(sens, 0) + ' + ' + fx(lat, 0) + ' = <b>' + fx(tot, 0) + ' kJ</b><br>Per minute = total / (hours × 60) = ' + fx(tot, 0) + ' / (' + o.hours + ' × 60) = <b>' + fx(kjmin, 1) + ' kJ/min</b><br>TR = (kJ/min) / 210 = ' + fx(kjmin, 1) + ' / 210 = <b>' + fx(TR, 2) + ' TR</b></p>';
+      a.info.innerHTML = 'The flat part is the phase change (temperature stays the same); the sloped part is the temperature change. Total heat ÷ minutes ÷ 210 = TR.';
+    };
+    a.draw();
+  }
+
+  // ---- CO2 dilution ventilation: V = N·Np / (Cin − Cout) ----
+  function co2(root, o) {
+    o = Object.assign({ N: 30, Np: 0.011, Cin: 1000, Cout: 400 }, o);
+    var W = 900, H = 330;
+    var a = frame(root, o, [['N', 'Students', 5, 60, 1, ''], ['Cin', 'Allowed indoor CO₂', 700, 1500, 50, 'ppm'], ['Cout', 'Outdoor CO₂', 300, 900, 10, 'ppm']], W, H);
+    a.draw = function () {
+      clear(a.svg, W, H);
+      var M = { l: 70, r: 30, t: 20, b: 50 }, c0 = 300, c1 = Math.max(o.Cin - 50, 350), V = function (c) { return o.N * o.Np / ((o.Cin - c) * 1e-6); };
+      var vmax = Math.min(V(c1), 20000), X = function (c) { return M.l + (c - c0) / (c1 - c0) * (W - M.l - M.r); }, Y = function (v) { return H - M.b - Math.min(v, vmax) / vmax * (H - M.t - M.b); };
+      el('rect', { x: M.l, y: M.t, width: W - M.l - M.r, height: H - M.t - M.b, class: 'phx-frame' }, a.svg);
+      var pts = []; for (var c = c0; c <= c1; c += 5) pts.push(X(c) + ',' + Y(V(c)));
+      el('path', { d: 'M' + pts.join('L'), fill: 'none', stroke: '#2f6fd6', 'stroke-width': 3 }, a.svg);
+      [[400, 'Khulna'], [800, 'Dhaka'], [o.Cout, 'now']].forEach(function (p, i) {
+        if (p[0] > c1) return; var v = V(p[0]);
+        el('line', { x1: X(p[0]), y1: Y(v), x2: X(p[0]), y2: H - M.b, class: 'phx-drop' }, a.svg);
+        el('circle', { cx: X(p[0]), cy: Y(v), r: 6, fill: i === 2 ? '#d62728' : '#fff', stroke: '#111', 'stroke-width': 2 }, a.svg);
+        el('text', { x: X(p[0]) + 8, y: Y(v) - 6, class: 'phx-hv' }, a.svg, p[1] + ': ' + fx(v, 0) + ' cfm');
+      });
+      for (c = 300; c <= c1; c += 100) el('text', { x: X(c), y: H - M.b + 16, 'text-anchor': 'middle', class: 'phx-ax' }, a.svg, c);
+      el('text', { x: (W + M.l) / 2, y: H - 10, 'text-anchor': 'middle', class: 'phx-axt' }, a.svg, 'Outdoor CO₂ (ppm) → the closer it is to the indoor limit, the more fresh air you need');
+      var v = V(o.Cout);
+      a.res.innerHTML = q('CO₂ made', fx(o.N * o.Np, 3), 'cfm') + q('Fresh air', fx(v, 0), 'cfm') + q('per person', fx(v / o.N, 1), 'cfm') + q('in SI', fx(v * 0.4719, 0), 'L/s') + '<p class="phx-work"><b>Working (formula = substitution = answer)</b><br>' + 'V = N N<sub>p</sub> / (C<sub>in</sub> − C<sub>out</sub>) = ' + o.N + ' × ' + o.Np + ' / ((' + o.Cin + ' − ' + o.Cout + ') × 10⁻⁶) = <b>' + fx(v, 0) + ' cfm</b></p>';
+      a.info.innerHTML = 'Mass balance: CO₂ in with fresh air + CO₂ breathed out = CO₂ leaving. So V = N·N<sub>p</sub> / (C<sub>in</sub> − C<sub>out</sub>).';
+    };
+    a.draw();
+  }
+
+  // ---- cooling load breakdown (stacked bar) ----
+  function load(root, o) {
+    o = Object.assign({ items: [], SF: 1.25 }, o);
+    var W = 900, H = 300;
+    var a = frame(root, o, [['SF', 'Safety factor', 1, 1.5, 0.05, '']], W, H);
+    a.draw = function () {
+      clear(a.svg, W, H);
+      var tot = o.items.reduce(function (t, i) { return t + i[1]; }, 0), M = { l: 20, r: 20 }, x = M.l, cols = ['#1f77b4', '#ff7f0e', '#2ca02c', '#d62728', '#9467bd', '#8c564b', '#e377c2', '#7f7f7f', '#bcbd22', '#17becf', '#aec7e8'];
+      o.items.forEach(function (it, k) {
+        var w = it[1] / tot * (W - M.l - M.r);
+        el('rect', { x: x, y: 40, width: w, height: 60, fill: cols[k % cols.length], stroke: it[2] === 'L' ? '#000' : 'none', 'stroke-dasharray': '4 2' }, a.svg);
+        el('text', { x: x + w / 2, y: 120 + (k % 4) * 16, 'text-anchor': 'middle', class: 'phx-hv', fill: cols[k % cols.length] }, a.svg, it[0] + ' ' + fx(it[1], 0) + ' W');
+        x += w;
+      });
+      var S = o.items.filter(function (i) { return i[2] === 'S'; }).reduce(function (t, i) { return t + i[1]; }, 0), L = tot - S;
+      el('text', { x: M.l, y: 28, class: 'phx-title' }, a.svg, 'Room total heat ' + fx(tot, 0) + ' W (sensible ' + fx(S, 0) + ' W, latent ' + fx(L, 0) + ' W; latent bars have a dashed outline)');
+      a.res.innerHTML = q('RSH', fx(S, 0), 'W') + q('RLH', fx(L, 0), 'W') + q('RTH', fx(tot, 0), 'W') + q('RSHF', fx(S / tot, 2), '') + q('× safety factor', fx(tot * o.SF, 0), 'W') + q('Capacity', fx(tot * o.SF / 3517, 2), 'TR') + '<p class="phx-work"><b>Working (formula = substitution = answer)</b><br>' + 'RTH = RSH + RLH = ' + fx(S, 0) + ' + ' + fx(L, 0) + ' = <b>' + fx(tot, 0) + ' W</b><br>RSHF = RSH / RTH = ' + fx(S, 0) + ' / ' + fx(tot, 0) + ' = <b>' + fx(S / tot, 2) + '</b><br>Design load = RTH × SF = ' + fx(tot, 0) + ' × ' + o.SF + ' = <b>' + fx(tot * o.SF, 0) + ' W</b> = ' + fx(tot * o.SF, 0) + ' / 3517 = <b>' + fx(tot * o.SF / 3517, 2) + ' TR</b></p>';
+      a.info.innerHTML = 'Biggest slices are the ones worth checking twice in the exam (walls and glass here).';
+    };
+    a.draw();
+  }
+
+  // ---- aircraft simple air cycle: T vs process ----
+  function air(root, o) {
+    o = Object.assign({ m: 50, cp: 1.0, Tb: 205, Thx: 80, Tt: -10, Tc: 25 }, o);
+    var W = 900, H = 330;
+    var a = frame(root, o, [['Tt', 'Turbine exit', -30, 10, 1, '°C'], ['Tc', 'Cabin exhaust', 15, 35, 1, '°C'], ['Tb', 'Bleed air', 150, 250, 5, '°C']], W, H);
+    a.draw = function () {
+      clear(a.svg, W, H);
+      var M = { l: 70, r: 30, t: 30, b: 50 }, pts = [['bleed', o.Tb], ['after HX', o.Thx], ['turbine exit', o.Tt], ['cabin exhaust', o.Tc]];
+      var X = function (i) { return M.l + 60 + i * (W - M.l - M.r - 120) / 3; }, Y = function (t) { return H - M.b - (t + 40) / 300 * (H - M.t - M.b); };
+      el('rect', { x: M.l, y: M.t, width: W - M.l - M.r, height: H - M.t - M.b, class: 'phx-frame' }, a.svg);
+      [-40, 0, 50, 100, 150, 200, 250].forEach(function (t) { el('line', { x1: M.l, y1: Y(t), x2: W - M.r, y2: Y(t), class: 'phx-grid' }, a.svg); el('text', { x: M.l - 6, y: Y(t) + 4, 'text-anchor': 'end', class: 'phx-ax' }, a.svg, t + ' °C'); });
+      el('rect', { x: X(2), y: Y(o.Tc), width: X(3) - X(2), height: Y(o.Tt) - Y(o.Tc), fill: '#1f77b4', opacity: 0.25 }, a.svg);
+      el('text', { x: (X(2) + X(3)) / 2, y: (Y(o.Tc) + Y(o.Tt)) / 2 + 4, 'text-anchor': 'middle', class: 'phx-hv' }, a.svg, 'cooling: ΔT = ' + (o.Tc - o.Tt) + ' K');
+      el('path', { d: 'M' + pts.map(function (p, i) { return X(i) + ',' + Y(p[1]); }).join('L'), fill: 'none', stroke: '#d62728', 'stroke-width': 3 }, a.svg);
+      pts.forEach(function (p, i) { el('circle', { cx: X(i), cy: Y(p[1]), r: 6, class: 'phx-pt' }, a.svg); el('text', { x: X(i), y: Y(p[1]) - 12, 'text-anchor': 'middle', class: 'phx-hv' }, a.svg, p[0] + ' ' + p[1] + ' °C'); });
+      var RE = o.m * o.cp * (o.Tc - o.Tt), IN = o.m * o.cp * (o.Tb - o.Tc);
+      a.res.innerHTML = q('Refrigerating effect', fx(RE, 0), 'kJ/min') + q('Capacity', fx(RE / 210, 2), 'TR') + q('Input to bled air', fx(IN, 0), 'kJ/min') + q('COP', fx(RE / IN, 3), '') + '<p class="phx-work"><b>Working (formula = substitution = answer)</b><br>' + 'RE = ṁ c<sub>p</sub>(T<sub>cabin</sub> − T<sub>turbine</sub>) = ' + o.m + ' × ' + o.cp + ' × (' + o.Tc + ' − ' + o.Tt + ') = <b>' + fx(RE, 0) + ' kJ/min</b><br>Input = ṁ c<sub>p</sub>(T<sub>bleed</sub> − T<sub>cabin</sub>) = ' + o.m + ' × ' + o.cp + ' × (' + o.Tb + ' − ' + o.Tc + ') = <b>' + fx(IN, 0) + ' kJ/min</b><br>TR = RE / 210 = <b>' + fx(RE / 210, 2) + '</b>; COP = RE / input = ' + fx(RE, 0) + ' / ' + fx(IN, 0) + ' = <b>' + fx(RE / IN, 3) + '</b></p>';
+      a.info.innerHTML = 'Hot bled air is cooled in the heat exchanger, expanded in the turbine to below cabin temperature, then warms up in the cabin: that warming is the cooling it gives.';
+    };
+    a.draw();
+  }
+  window.MINI = { ice: ice, co2: co2, load: load, air: air };
+})();
+</script><script>MINI.ice(document.getElementById('ix-TR'),{"m": 2000, "t1": 0, "t2": 45, "hours": 24});</script></body></html>
