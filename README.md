@@ -15,3 +15,4 @@ Live site: https://simulahmed003.github.io/EXAM/
 - ESE 3105 Heat and Mass Transfer: https://simulahmed003.github.io/EXAM/ESE3105/ESE3105_Start_Here.html
 - ESE 3107 Solar Thermal Engineering: https://simulahmed003.github.io/EXAM/ESE3107/ESE3107_Start_Here.html
 - ESE 3123 Thermo-Fluid Devices: https://simulahmed003.github.io/EXAM/ESE3123/ESE3123_Start_Here.html
+- ESE 3203 Petroleum and Natural Gas Processing: https://simulahmed003.github.io/EXAM/ESE3203/ESE3203_Start_Here.html
