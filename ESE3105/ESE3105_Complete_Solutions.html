@@ -111,7 +111,8 @@ table.steps{border-collapse:collapse;width:100%;margin:10px 0;font-size:.95em}ta
   var MATH = { sind: function (a) { return Math.sin(a * D); }, cosd: function (a) { return Math.cos(a * D); }, tand: function (a) { return Math.tan(a * D); },
     asind: function (v) { return Math.asin(v) / D; }, acosd: function (v) { return Math.acos(v) / D; }, atand: function (v) { return Math.atan(v) / D; },
     sqrt: Math.sqrt, pow: Math.pow, ln: Math.log, log10: Math.log10 || function (v) { return Math.log(v) / Math.LN10; }, exp: Math.exp, abs: Math.abs,
-    min: Math.min, max: Math.max, PI: Math.PI, sin: Math.sin, cos: Math.cos, tan: Math.tan, floor: Math.floor, round: Math.round };
+    min: Math.min, max: Math.max, PI: Math.PI, sin: Math.sin, cos: Math.cos, tan: Math.tan, floor: Math.floor, round: Math.round,
+    tanh: Math.tanh, sinh: Math.sinh, cosh: Math.cosh, asin: Math.asin, acos: Math.acos, atan: Math.atan, log: Math.log, ceil: Math.ceil };
   var MK = Object.keys(MATH), MV = MK.map(function (k) { return MATH[k]; });
   function fn(expr, names) { try { return new Function(MK.concat(names).join(','), 'return (' + expr + ');'); } catch (e) { return function () { return NaN; }; } }
   function fmt(v, d) { if (typeof v === 'string') return v; if (!isFinite(v)) return '&ndash;'; var a = Math.abs(v); if (d == null) d = a >= 100 ? 1 : a >= 1 ? 3 : 4;
