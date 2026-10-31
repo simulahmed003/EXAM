@@ -12,3 +12,4 @@ Live site: https://simulahmed003.github.io/EXAM/
 - ESE 4007 Smart Grid Technology: https://simulahmed003.github.io/EXAM/ESE4007/ESE4007_Start_Here.html
 - ESE 4011 Materials for Energy Engineering Application: https://simulahmed003.github.io/EXAM/ESE4011/ESE4011_Start_Here.html
 - ESE 1205 Thermodynamics: https://simulahmed003.github.io/EXAM/ESE1205/ESE1205_Start_Here.html
+- ESE 3105 Heat and Mass Transfer: https://simulahmed003.github.io/EXAM/ESE3105/ESE3105_Start_Here.html
