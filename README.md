@@ -11,3 +11,4 @@ Live site: https://simulahmed003.github.io/EXAM/
 - ESE 4125 Safety and Environmental Aspects of Energy Projects: https://simulahmed003.github.io/EXAM/ESE4125/ESE4125_Start_Here.html
 - ESE 4007 Smart Grid Technology: https://simulahmed003.github.io/EXAM/ESE4007/ESE4007_Start_Here.html
 - ESE 4011 Materials for Energy Engineering Application: https://simulahmed003.github.io/EXAM/ESE4011/ESE4011_Start_Here.html
+- ESE 1205 Thermodynamics: https://simulahmed003.github.io/EXAM/ESE1205/ESE1205_Start_Here.html
