@@ -134,7 +134,7 @@ table.steps{border-collapse:collapse;width:100%;margin:10px 0;font-size:.95em}ta
   function el(t, a, p) { var e = document.createElementNS(NS, t); for (var k in a) e.setAttribute(k, a[k]); if (p) p.appendChild(e); return e; }
   function head(b, s) { b.innerHTML = ''; b.appendChild(h('div', { 'class': 'ixhead' }, '<span class="ixtag">' + (b.dataset.ix === 'calc' ? 'CALCULATOR' : 'INTERACTIVE') + '</span>' + s.t)); if (s.h) b.appendChild(h('p', { 'class': 'ixhint' }, s.h)); }
   function sf(v) { var a = Math.abs(v); if (a !== 0 && (a < 1e-3 || a >= 1e7)) return fmt(v); return String(parseFloat((+v).toPrecision(4))); }
-  function subst(expr, env) { return expr.replace(/\*\*/g, '^').replace(/\*/g, ' \u00d7 ').replace(/\//g, ' / ')
+  function subst(expr, env) { return expr.replace(/\*\*/g, '^').replace(/\*/g, ' \u00d7 ').replace(/\//g, ' / ').replace(/\b(\d+(?:\.\d+)?)e(-?\d+)\b/g, function (m, a, b) { return (a === '1' ? '' : a + '\u00d7') + '10<sup>' + b + '</sup>'; })
       .replace(/\batand\(/g, 'tan\u207b\u00b9(').replace(/\basind\(/g, 'sin\u207b\u00b9(').replace(/\bacosd\(/g, 'cos\u207b\u00b9(').replace(/\b(tan|sin|cos)d\(/g, '$1(').replace(/\bsqrt\(/g, '\u221a(')
       .replace(/\b([A-Za-z_]\w*)\b(?!\s*\()/g, function (m) { if (!(m in env)) return m; var v = sf(env[m]); return '<b>' + (env[m] < 0 ? '(' + v + ')' : v) + '</b>'; }); }
 
@@ -142,7 +142,7 @@ table.steps{border-collapse:collapse;width:100%;margin:10px 0;font-size:.95em}ta
     var s = JSON.parse(b.dataset.spec); head(b, s);
     var ctl = h('div', { 'class': 'ixctl' }), out = h('div', { 'class': 'ixout' }); b.appendChild(ctl); b.appendChild(out);
     var inp = {};
-    s.i.forEach(function (r) { var l = h('label', { 'class': 'num' }, r[1] + (r[2] ? ' <em>(' + r[2] + ')</em>' : '')); var x = h('input', { type: 'number', step: 'any', value: r[3] }); l.appendChild(x); ctl.appendChild(l); inp[r[0]] = x; x.addEventListener('input', go); });
+    s.i.forEach(function (r) { var l = h('label', { 'class': 'num' }, '<span>' + r[1] + (r[2] ? ' <em>(' + r[2] + ')</em>' : '') + '</span>'); var x = h('input', { type: 'number', step: 'any', value: r[3] }); l.appendChild(x); ctl.appendChild(l); inp[r[0]] = x; x.addEventListener('input', go); });
     var F = s.s.map(function (r, i) { return fn(r[2], s.i.map(function (q) { return q[0]; }).concat(s.s.slice(0, i).map(function (q) { return q[0]; }))); });
     function go() {
       var env = {}, vals = []; s.i.forEach(function (r) { env[r[0]] = parseFloat(inp[r[0]].value); vals.push(env[r[0]]); });
@@ -161,11 +161,12 @@ table.steps{border-collapse:collapse;width:100%;margin:10px 0;font-size:.95em}ta
     s.c.forEach(function (c) { leg.appendChild(h('span', {}, '<i style="background:' + (COL[c[2]] || c[2] || COL.b) + '"></i>' + c[1])); });
     var ctl = h('div', { 'class': 'ixctl' }), out = h('div', { 'class': 'ixout' }); b.appendChild(ctl);
     var P = {}, names = s.p.map(function (p) { return p[0]; });
-    s.p.forEach(function (p) { var l = h('label', {}, p[1] + ': <b></b>'); var x = h('input', { type: 'range', min: p[2], max: p[3], step: p[4], value: p[5] }); l.appendChild(x); ctl.appendChild(l); P[p[0]] = [x, l.querySelector('b')]; x.addEventListener('input', go); });
+    s.p.forEach(function (p) { var l = h('label', {}, '<span>' + p[1] + ': <b></b></span>'); var x = h('input', { type: 'range', min: p[2], max: p[3], step: p[4], value: p[5] }); l.appendChild(x); ctl.appendChild(l); P[p[0]] = [x, l.querySelector('b')]; x.addEventListener('input', go); });
     if (s.o.length || s.n) b.appendChild(out);
     var CF = s.c.map(function (c) { return fn(c[0], ['x'].concat(names)); });
     var MF = s.m.map(function (m) { return [fn(m[0], names), fn(m[1], names)]; }), VF = s.v.map(function (v) { return fn(v[0], names); });
     var OF = s.o.map(function (o) { return fn(o[1], names); });
+    function strip(t) { return (t || '').replace(/<[^>]+>/g, ''); }
     function nice(a, b) { var r = b - a, st = Math.pow(10, Math.floor(Math.log10(r / 5 || 1))), m = r / st / 5; st *= m > 5 ? 10 : m > 2 ? 5 : m > 1 ? 2 : 1; var t = []; for (var v = Math.ceil(a / st) * st; v <= b + 1e-9; v += st) t.push(+v.toFixed(10)); return t; }
     function go() {
       var pv = names.map(function (n) { var v = parseFloat(P[n][0].value); P[n][1].textContent = v; return v; });
@@ -182,8 +183,8 @@ table.steps{border-collapse:collapse;width:100%;margin:10px 0;font-size:.95em}ta
       nice(s.x[0], s.x[1]).forEach(function (v) { el('line', { x1: X(v), x2: X(v), y1: T, y2: H - B }, ax); el('text', { x: X(v), y: H - B + 15, 'text-anchor': 'middle', 'font-size': 11, fill: 'currentColor' }, svg).textContent = v; });
       nice(Y0, Y1).forEach(function (v) { el('line', { x1: L, x2: W - R, y1: Y(v), y2: Y(v) }, ax); el('text', { x: L - 6, y: Y(v) + 4, 'text-anchor': 'end', 'font-size': 11, fill: 'currentColor' }, svg).textContent = v; });
       el('rect', { x: L, y: T, width: W - L - R, height: H - T - B, fill: 'none', stroke: 'currentColor', 'stroke-opacity': .5 }, svg);
-      el('text', { x: (L + W - R) / 2, y: H - 6, 'text-anchor': 'middle', 'font-size': 12, 'font-weight': 600, fill: 'currentColor' }, svg).textContent = s.xl || '';
-      el('text', { x: 13, y: (T + H - B) / 2, 'text-anchor': 'middle', 'font-size': 12, 'font-weight': 600, fill: 'currentColor', transform: 'rotate(-90 13 ' + (T + H - B) / 2 + ')' }, svg).textContent = s.yl || '';
+      el('text', { x: (L + W - R) / 2, y: H - 6, 'text-anchor': 'middle', 'font-size': 12, 'font-weight': 600, fill: 'currentColor' }, svg).textContent = strip(s.xl);
+      el('text', { x: 13, y: (T + H - B) / 2, 'text-anchor': 'middle', 'font-size': 12, 'font-weight': 600, fill: 'currentColor', transform: 'rotate(-90 13 ' + (T + H - B) / 2 + ')' }, svg).textContent = strip(s.yl);
       var cid = 'k' + Math.random().toString(36).slice(2), cp = el('clipPath', { id: cid }, el('defs', {}, svg)); el('rect', { x: L, y: T, width: W - L - R, height: H - T - B }, cp);
       var g = el('g', { 'clip-path': 'url(#' + cid + ')' }, svg);
       VF.forEach(function (f, i) { var xv = f.apply(null, MV.concat(pv)); if (!isFinite(xv)) return; el('line', { x1: X(xv), x2: X(xv), y1: T, y2: H - B, stroke: COL.k, 'stroke-dasharray': '4 4' }, g); el('text', { x: X(xv) + 4, y: T + 12, 'font-size': 11, fill: COL.k }, g).textContent = s.v[i][1]; });
